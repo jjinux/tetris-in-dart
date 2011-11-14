@@ -1,0 +1,16 @@
+go_appengine
+============
+
+This is a small application written in Go for Google App Engine.  It asks the
+user to solve an arithmetic problem using arbitrary-precision arithmetic.
+
+To compile and run this:
+
+    $ 6g main.go && 6l main.6 && ./6.out
+
+Now, go to (http://localhost:8080/).
+
+TODO
+----
+
+ * I need to fill in the next URL.
