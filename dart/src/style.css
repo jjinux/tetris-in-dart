@@ -1,0 +1,20 @@
+img {
+  border: 0;
+}
+
+.board div {
+  height: 16px;
+}
+
+#instructions {
+  position: absolute;
+  right: 0;
+  top: 0;
+  border: 1px solid black;
+  padding: 5px;
+  background-color: #eeeeee;
+}
+
+#form-and-board {
+  margin: 15px;
+}
