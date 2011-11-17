@@ -8,10 +8,8 @@ To play it, open src/index.html in a modern web browser.
 TODO
 ----
 
- * Redo the images.
- * Run it through JS-Lint.
- * When the user gets to 5 rows, tell him the next URL.
  * Translate the code to Dart.
+ * Fill in the correct next URL.
 
 Credits
 -------

@@ -8,7 +8,8 @@ var game = (function () {
     NUM_TYPES = 7,
     NUM_IMAGES = 8,
     MAX_LEVEL = 10,
-    ROWS_PER_LEVEL = 5,
+    ROWS_PER_LEVEL = 1,
+    WINNING_NUM_LINES = 5,
     BOARD_HEIGHT = 16,
     BOARD_WIDTH = 10,
     SLOWEST_SPEED = 700,
@@ -155,10 +156,11 @@ var game = (function () {
         numLines += 1;
         skyline += 1;
         document.gameForm.numLines.value = numLines;
-        if (numLines % ROWS_PER_LEVEL === 0) {
-          if (curLevel < MAX_LEVEL) {
-            curLevel += 1;
-          }
+        if (numLines % ROWS_PER_LEVEL === 0 && curLevel < MAX_LEVEL) {
+          curLevel += 1;
+        }
+        if (numLines === WINNING_NUM_LINES) {
+          document.getElementById('next-url').style.display = 'block';
         }
         speed = SLOWEST_SPEED - FASTEST_SPEED * curLevel;
         document.gameForm.levelSelector.selectedIndex = curLevel - 1;

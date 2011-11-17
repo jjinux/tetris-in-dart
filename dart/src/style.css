@@ -18,3 +18,11 @@ img {
 #form-and-board {
   margin: 15px;
 }
+
+.hidden-by-default {
+  display: none;
+}
+
+#next-url {
+  color: red;
+}
