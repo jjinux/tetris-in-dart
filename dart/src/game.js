@@ -253,13 +253,11 @@ var game = (function () {
   function play() {
     if (moveDown()) {
       timerId = setTimeout(play, speed);
-      return;
     } else {
       fillMatrix();
       removeLines();
       if (skyline > 0 && getPiece()) {
         timerId = setTimeout(play, speed);
-        return;
       } else {
         isActiveLeft = false;
         isActiveUp = false;
