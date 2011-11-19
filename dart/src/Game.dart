@@ -1,6 +1,9 @@
 /**
  * This is an implementation of Tetris in Dart.
  *
+ * Warning: This is my first Dart program, and I haven't even read the tutorial
+ * yet!  Nonetheless, it does work, and it's fairly clean.
+ *
  * This code was inspired by Alexei Kourbatov (http://www.javascripter.net).
  */
 
