@@ -192,9 +192,12 @@ class Game {
     gameStarted = false;
     gamePaused = false;
     numLines = 0;
+    curLevel = 1;
     skyline = BOARD_HEIGHT - 1;
     HTMLInputElement numLinesField = doc.getElementById("num-lines");
     numLinesField.value = numLines.toString();
+    HTMLSelectElement levelSelect = doc.getElementById("level-select");
+    levelSelect.selectedIndex = 0;
   }
 
   void play() {
