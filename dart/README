@@ -60,7 +60,10 @@ Lessons Learned
    looking up APIs by hand all the time.
 
  * Trying to figure out the proper way to handle keyboard events in Dart is
-   hard because of the DOM.
+   hard because of the DOM.  I'm looking at
+   (https://developer.mozilla.org/en/DOM/KeyboardEvent), and it looks like
+   there are two ways to do things, the deprecated way, and the way that isn't
+   implemented yet.
 
  * Command-g is the usual Apple key to find the next occurrence of something,
    but it doesn't work in Dart Editor.
