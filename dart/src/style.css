@@ -26,3 +26,7 @@ img {
 #next-url {
   color: red;
 }
+
+#board-trailing-img {
+  vertical-align: top;
+}
