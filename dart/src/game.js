@@ -1,5 +1,12 @@
 /*jslint devel: true, browser: true, maxerr: 50, indent: 2 */
 
+// This is a JavaScript version of Tetris.
+//
+// This code was inspired by Alexei Kourbatov (http://www.javascripter.net).
+//
+// It won't work anymore because I took out the inline event handlers in the
+// HTML.  However, I'm leaving it here to compare with the Dart version.
+
 // game is a module.  The exported functions are listed at the bottom.
 var game = (function () {
   'use strict';
