@@ -16,7 +16,7 @@ class Game {
   static final NUM_IMAGES = 8;
   static final DEFAULT_LEVEL = 1;
   static final MAX_LEVEL = 10;
-  static final ROWS_PER_LEVEL = 1;
+  static final ROWS_PER_LEVEL = 5;
   static final WINNING_NUM_LINES = 5;
   static final BOARD_HEIGHT = 16;
   static final BOARD_WIDTH = 10;
