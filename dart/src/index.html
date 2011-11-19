@@ -4,13 +4,9 @@
 <head>
   <title>Tetris Written in Dart</title>
   <link rel=stylesheet type=text/css href=style.css>
-  <script type=text/javascript src="game.js"></script>
-  <!-- TODO: Uncomment.
-    <script type=text/javascript src=index.dart.app.js></script>
-  -->
 </head>
 
-<body onload="game.init()">
+<body>
 <h1>Tetris Written in Dart</h1>
 
 <div id="instructions">
@@ -46,10 +42,9 @@
 <div id="form-and-board">
   <div id="board-div"></div>
 
-  <form name=gameForm>
-    <label for=level-selector>Level:</label>
-    <select id=level-selector name=levelSelector
-            onchange="game.getLevel(); this.blur();">
+  <form>
+    <label for=level-select>Level:</label>
+    <select id=level-select name=levelSelector>
       <option value=1 selected>1
       <option value=2>2
       <option value=3>3
@@ -63,10 +58,10 @@
     </select>
 
     <label for=num-lines>Lines:</label>
-    <input id=num-lines name=numLines type=text value=0 size=2 readonly>
+    <input id=num-lines type=text value=0 size=2 readonly>
 
-    <input type=button value=Start onCLick="game.start()">
-    <input type=button value=Pause onCLick="game.pause()">
+    <input type=button value=Start id=start-button>
+    <input type=button value=Pause id=pause-button>
   </form>
 
   <p id=next-url class=hidden-by-default>
@@ -74,5 +69,7 @@
     <a href=http://jjinux.blogspot.com target=_blank>http://jjinux.blogspot.com</a>.
   </p>
 </div>
+
+<script type=text/javascript src=Game.dart.app.js></script>
 </body>
 </html>
