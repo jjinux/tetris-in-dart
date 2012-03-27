@@ -19,14 +19,6 @@ img {
   margin: 15px;
 }
 
-.hidden-by-default {
-  display: none;
-}
-
-#next-url {
-  color: red;
-}
-
 #board-trailing-img {
   vertical-align: top;
 }
