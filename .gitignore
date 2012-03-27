@@ -3,3 +3,7 @@
 
 # OS X
 .DS_Store
+
+# Dart Editor
+dart/src/.children
+dart/src/.project
