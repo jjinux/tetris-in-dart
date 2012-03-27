@@ -7,7 +7,9 @@
  * This code was inspired by Alexei Kourbatov (http://www.javascripter.net).
  */
 
-#import('dart:dom');
+#library('game');
+
+#import('dart:html');
 
 class Game {
 
@@ -17,7 +19,6 @@ class Game {
   static final DEFAULT_LEVEL = 1;
   static final MAX_LEVEL = 10;
   static final ROWS_PER_LEVEL = 5;
-  static final WINNING_NUM_LINES = 5;
   static final BOARD_HEIGHT = 16;
   static final BOARD_WIDTH = 10;
   static final SLOWEST_SPEED = 700;
@@ -55,7 +56,7 @@ class Game {
   num timerId = null;
   num numLines = 0;
   num speed = SLOWEST_SPEED - FASTEST_SPEED * DEFAULT_LEVEL;
-  List<HTMLImageElement> squareImages;
+  List<ImageElement> squareImages;
   List<List<num>> board;
   List<num> xToErase;
   List<num> yToErase;
@@ -78,9 +79,7 @@ class Game {
   bool isActiveSpace = false;
   num timerSpace = null;
 
-  Game() {
-    HTMLDocument doc = window.document;
-    
+  Game() {    
     squareImages = [];
     board = [];
     xToErase = [0, 0, 0, 0];
@@ -93,7 +92,7 @@ class Game {
     dyBank = [[], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 1, 1], [0, 0, 1, 1], [0, 0, 0, 0], [0, 0, 1, 1]];
 
     for (num i = 0; i < NUM_IMAGES; i++) {
-      HTMLImageElement img = doc.createElement("img");
+      ImageElement img = new Element.tag("img");
       img.src = 'images/s' + i + '.png';
       squareImages.add(img);
     }
@@ -105,19 +104,19 @@ class Game {
       }
     }
     
-    doc.onkeydown = onKeyDown;
-    doc.onkeyup = onKeyUp;
+    document.on.keyDown.add(onKeyDown);
+    document.on.keyUp.add(onKeyUp);
     
-    HTMLSelectElement levelSelect = doc.getElementById("level-select");
-    levelSelect.onchange = (Event e) {
-      setLevel();
+    SelectElement levelSelect = document.query("#level-select");
+    levelSelect.on.change.add((Event e) {
+      onLevelSelectChange();
       levelSelect.blur();
-    };
+    });
     
-    HTMLButtonElement startButton = doc.getElementById("start-button");
-    HTMLButtonElement pauseButton = doc.getElementById("pause-button");
-    startButton.onclick = (event) => start();
-    pauseButton.onclick = (event) => pause();
+    ButtonElement startButton = document.query("#start-button");
+    ButtonElement pauseButton = document.query("#pause-button");
+    startButton.on.click.add((event) => start());
+    pauseButton.on.click.add((event) => pause());
   }
 
   void run() {
@@ -126,7 +125,6 @@ class Game {
   }
   
   void start() {
-    HTMLDocument doc = window.document;
     if (sayingBye) {
       window.history.back();
       sayingBye = false;
@@ -144,38 +142,37 @@ class Game {
     drawPiece();
     gameStarted = true;
     gamePaused = false;
-    HTMLInputElement numLinesField = doc.getElementById("num-lines");
+    InputElement numLinesField = document.query("#num-lines");
     numLinesField.value = numLines.toString();
     timerId = window.setTimeout(play, speed);
   }
 
   void drawBoard() {
-    HTMLDocument doc = window.document;
-    HTMLDivElement boardDiv = doc.getElementById("board-div");
-    HTMLPreElement pre = doc.createElement("pre");
-    boardDiv.appendChild(pre);
-    pre.className = "board";    
+    DivElement boardDiv = document.query("#board-div");
+    PreElement pre = new Element.tag("pre");
+    boardDiv.nodes.add(pre);
+    pre.classes.add("board");    
     for (num i = 0; i < BOARD_HEIGHT; i++) {
-      HTMLDivElement div = doc.createElement("div");
-      pre.appendChild(div);
+      DivElement div = new Element.tag("div");
+      pre.nodes.add(div);
       for (num j = 0; j < BOARD_WIDTH; j++) {
-        HTMLImageElement img = doc.createElement("img");
-        div.appendChild(img);
+        ImageElement img = new Element.tag("img");
+        div.nodes.add(img);
         img.id = "s-" + i + "-" + j;
         img.src = "images/s" + board[i][j].abs() + ".png";
         img.width = SQUARE_WIDTH;
         img.height = SQUARE_HEIGHT;
       }
-      HTMLImageElement rightMargin = doc.createElement("img");
-      div.appendChild(rightMargin);
+      ImageElement rightMargin = new Element.tag("img");
+      div.nodes.add(rightMargin);
       rightMargin.src = "images/g.png";
       rightMargin.width = 1;
       rightMargin.height = SQUARE_HEIGHT;
     }
-    HTMLDivElement trailingDiv = doc.createElement("div");    
-    pre.appendChild(trailingDiv);
-    HTMLImageElement trailingImg = doc.createElement("img");
-    trailingDiv.appendChild(trailingImg);
+    DivElement trailingDiv = new Element.tag("div");    
+    pre.nodes.add(trailingDiv);
+    ImageElement trailingImg = new Element.tag("img");
+    trailingDiv.nodes.add(trailingImg);
     trailingImg.src = "images/g.png";
     trailingImg.id = "board-trailing-img";
     trailingImg.width = BOARD_WIDTH * 16 + 1;
@@ -184,11 +181,10 @@ class Game {
   }
   
   void resetGame() {
-    HTMLDocument doc = window.document;
     for (num i = 0; i < BOARD_HEIGHT; i++) {
       for (num j = 0; j < BOARD_WIDTH; j++) {
         board[i][j] = 0;
-        HTMLImageElement img = doc.getElementById("s-" + i + "-" + j);
+        ImageElement img = document.query("#s-" + i + "-" + j);
         img.src = 'images/s0.png';
       }
     }
@@ -197,10 +193,14 @@ class Game {
     numLines = 0;
     curLevel = 1;
     skyline = BOARD_HEIGHT - 1;
-    HTMLInputElement numLinesField = doc.getElementById("num-lines");
+    InputElement numLinesField = document.query("#num-lines");
     numLinesField.value = numLines.toString();
-    HTMLSelectElement levelSelect = doc.getElementById("level-select");
+    SelectElement levelSelect = document.query("#level-select");
     levelSelect.selectedIndex = 0;
+    
+    // I shouldn't have to call this manually, but I do.
+    // See: http://code.google.com/p/dart/issues/detail?id=2325&thanks=2325&ts=1332879888
+    onLevelSelectChange();
   }
 
   void play() {
@@ -328,7 +328,6 @@ class Game {
   void removeLines() {
     num i, j, k;
     bool gapFound;
-    HTMLDocument doc = window.document;
     for (i = 0; i < BOARD_HEIGHT; i++) {
       gapFound = false;
       for (j = 0; j < BOARD_WIDTH; j++) {
@@ -341,28 +340,24 @@ class Game {
         for (k = i; k >= skyline; k--) {
           for (j = 0; j < BOARD_WIDTH; j++) {
             board[k][j] = board[k - 1][j];
-            HTMLImageElement img = doc.getElementById("s-" + k + "-" + j);
+            ImageElement img = document.query("#s-" + k + "-" + j);
             img.src = squareImages[board[k][j]].src;
           }
         }
         for (j = 0; j < BOARD_WIDTH; j++) {
           board[0][j] = 0;
-          HTMLImageElement img = doc.getElementById("s-0-" + j);
+          ImageElement img = document.query("#s-0-" + j);
           img.src = squareImages[0].src;
         }
         numLines++;
         skyline++;
-        HTMLInputElement numLinesField = doc.getElementById("num-lines");
+        InputElement numLinesField = document.query("#num-lines");
         numLinesField.value = numLines.toString();
         if (numLines % ROWS_PER_LEVEL == 0 && curLevel < MAX_LEVEL) {
           curLevel++;
         }
-        if (numLines == WINNING_NUM_LINES) {
-          HTMLDivElement nextUrlDiv = doc.getElementById('next-url');
-          nextUrlDiv.style.setProperty("display", "block");
-        }
         speed = SLOWEST_SPEED - FASTEST_SPEED * curLevel;
-        HTMLSelectElement levelSelect = doc.getElementById("level-select");
+        SelectElement levelSelect = document.query("#level-select");
         levelSelect.selectedIndex = curLevel - 1;
       }
     }
@@ -400,20 +395,19 @@ class Game {
   
   void drawPiece() {
     num k, x, y;
-    HTMLDocument doc = window.document;
     if (boardDrawn) {
       for (k = 0; k < NUM_SQUARES; k++) {
         x = curX + dx[k];
         y = curY + dy[k];
         if (0 <= y && y < BOARD_HEIGHT && 0 <= x && x < BOARD_WIDTH && board[y][x] != -curPiece) {
-          HTMLImageElement img = doc.getElementById("s-" + y + "-" + x);
+          ImageElement img = document.query("#s-" + y + "-" + x);
           img.src = squareImages[curPiece].src;
           board[y][x] = -curPiece;
         }
         x = xToErase[k];
         y = yToErase[k];
         if (board[y][x] == 0) {
-          HTMLImageElement img = doc.getElementById("s-" + y + "-" + x);
+          ImageElement img = document.query("#s-" + y + "-" + x);
           img.src = squareImages[0].src;
         }
       }
@@ -488,10 +482,9 @@ class Game {
     }
   }
 
-  void setLevel() {
-    HTMLDocument doc = window.document;
-    HTMLSelectElement levelSelect = doc.getElementById("level-select");
-    HTMLOptionElement selectedOption = levelSelect.options[levelSelect.selectedIndex];
+  void onLevelSelectChange() {
+    SelectElement levelSelect = document.query("#level-select");
+    OptionElement selectedOption = levelSelect.options[levelSelect.selectedIndex];
     curLevel = Math.parseInt(selectedOption.value);
     speed = SLOWEST_SPEED - FASTEST_SPEED * curLevel;
   }
@@ -552,10 +545,9 @@ class Game {
   }
 
   void write(String message) {
-    HTMLDocument doc = window.document;
-    HTMLParagraphElement p = doc.createElement('p');
-    p.textContent = message;
-    doc.body.appendChild(p);
+    ParagraphElement p = new Element.tag('p');
+    p.text = message;
+    document.body.nodes.add(p);
   }
   
 }
