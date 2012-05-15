@@ -5,6 +5,8 @@ This is Tetris written in Dart.
 
 To play it, open src/index.html in a modern web browser.
 
+There's also a JavaScript version in tetris-in-javascript.
+
 Updating
 --------
 

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Tetris Written in Dart</title>
+  <link rel=stylesheet type=text/css href=style.css>
+  <script type=text/javascript src=game.js></script>
+</head>
+
+<body onload="game.init()">
+<h1>Tetris Written in Dart</h1>
+
+<div id=instructions>
+  <b>Goal:</b> Fill as many rows as possible!<br>
+
+  <p>
+    <b>Control Keys</b>
+  </p>
+
+  <table>
+    <tr>
+      <td>To move left</td>
+      <td>Press <b>4</b> or &#8592;</td>
+    </tr>
+
+    <tr>
+      <td>To move right</td>
+      <td>Press <b>6</b> or &#8594;</td>
+    </tr>
+
+    <tr>
+      <td>To rotate</td>
+      <td>Press <b>5</b> or <b>8</b> or &#8593;</td>
+    </tr>
+
+    <tr>
+      <td>To drop faster&nbsp;&nbsp;</td>
+      <td>Press <b>space</b> or &#8595;</td>
+    </tr>
+  </table>
+</div>
+
+<div id=form-and-board>
+  <div id=board-div></div>
+
+  <form name=gameForm>
+    <label for=level-selector>Level:</label>
+    <select id=level-selector name=levelSelector
+            onchange="game.getLevel(); this.blur();">
+      <option value=1 selected>1
+      <option value=2>2
+      <option value=3>3
+      <option value=4>4
+      <option value=5>5
+      <option value=6>6
+      <option value=7>7
+      <option value=8>8
+      <option value=9>9
+      <option value=10>10
+    </select>
+
+    <label for=num-lines>Lines:</label>
+    <input id=num-lines name=numLines type=text value=0 size=2 readonly>
+
+    <input type=button value=Start onCLick="game.start()">
+    <input type=button value=Pause onCLick="game.pause()">
+  </form>
+</div>
+</body>
+</html>
