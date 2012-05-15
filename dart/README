@@ -1,21 +1,16 @@
-dart
-====
+tetris-in-dart
+==============
 
 This is Tetris written in Dart.
 
 To play it, open src/index.html in a modern web browser.
 
-TODO
-----
-
- * Fill in the correct next URL.
-
 Updating
 --------
 
 Make sure you get the latest, untested version of Dart Editor and use
-Tools >> Generate Optimized JavaScript when committing a new version of
-Game.dart.app.js.
+Tools >> Generate JavaScript when committing a new version of
+Game.dart.js.
 
 Credits
 -------
