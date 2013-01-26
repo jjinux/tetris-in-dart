@@ -1,9 +1,8 @@
-# PyCharm and IntelliJ
-.idea
-
 # OS X
 .DS_Store
 
 # Dart Editor
-dart/src/.children
-dart/src/.project
+.children
+.project
+
+# Make sure you *do* put the .js into Git. I'm using it for one of my blog posts.
